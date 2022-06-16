@@ -14,25 +14,17 @@ use App\Models\Post;
 */
 
 Route::get('/', function () {
-    return view('posts');
+    $posts = Post::all();
+
+    ddd($posts);
+
+    return view('posts', [
+        'posts' => $posts
+    ]);
 });
 
 Route::get('posts/{post}', function ($slug) {
-    //  Find a post by its slug and pass it to a view called "post"
-    $post = Post::find($slug);
     return view('post', [
-        'post' => $post
+        'post' =>  Post::find($slug)
     ]);
-
-    // if (!file_exists($path = __DIR__ . "/../resources/posts/{$slug}.html")) {
-    //     return redirect('/');
-    // }
-
-    // $post = cache()->remember("posts.{$slug}", 5, fn () => file_get_contents($path));
-
-    // $post = file_get_contents(__DIR__ . "/../resources/posts/{$slug}.html");
-
-    // return view('post', [
-    //     'post' => $post
-    // ]);
 })->where('post', '[A-z_\-]+');
