@@ -9,8 +9,7 @@
         <article>
             <h1>
                 <a href="/posts/<?= $post->slug; ?>">
-                    <?= $post->title; ?>
-                </a>
+                    {{$post->title}}
             </h1>
             <div>
                 <?= $post->excerpt; ?>
