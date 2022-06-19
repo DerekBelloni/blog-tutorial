@@ -32,7 +32,7 @@ class Post
   public static function all()
   {
     return cache()->rememberForever('posts.all', function () {
-      collect(
+      return collect(
         File::files(resource_path("posts"))
       )
         ->map(fn ($file) => YamlFrontMatter::parseFile($file))
@@ -50,6 +50,7 @@ class Post
 
   public static function find($slug)
   {
-    return static::all()->firstWhere('slug', $slug);
+    $posts = static::all();
+    return $posts->firstWhere('slug', $slug);
   }
 }
