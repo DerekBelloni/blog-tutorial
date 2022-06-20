@@ -48,9 +48,12 @@ class Post
   }
 
 
-  public static function find($slug)
+  public static function findOrFail($slug)
   {
-    $posts = static::all();
-    return $posts->firstWhere('slug', $slug);
+    $post = static::all()->firstWhere('slug', $slug);
+    if (!$post) {
+      throw new ModelNotFoundException();
+    }
+    return $post;
   }
 }
